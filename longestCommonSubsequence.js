@@ -1,8 +1,6 @@
 function longestCommonSubsequence(strOne, strTwo) {
   let memo = initMemo(strOne.length, strTwo.length);
   fillMemo(0, 0);
-  console.log(memo);
-
   return extractLCS(0, 0, strTwo.length, "");
 
   function fillMemo(i, j) {
@@ -30,15 +28,18 @@ function longestCommonSubsequence(strOne, strTwo) {
 
   function initMemo(row, col) {
     let memo = new Array(row);
-    // memo[0] = new Array(col).fill(0);
 
     for (let i = 0; i < row; i++) {
       memo[i] = new Array(col).fill(-1);
-      // memo[i][0] = 0;
     }
 
     return memo;
   }
 }
 
-console.log(longestCommonSubsequence("abcdefghij", "cdgi"));
+console.log(
+  longestCommonSubsequence(
+    ";awkjrehglqkwjhertflkqwejhflkwejhfjdjdjdawerqweqweq",
+    "awlejhtfqlwejfhljkefwh"
+  )
+);
