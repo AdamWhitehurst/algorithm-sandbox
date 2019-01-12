@@ -1,3 +1,20 @@
+/**
+ * Tests function 'f' against each TreeNode in 'roots' for the
+ * specified number of 'iterations'. Execution time is logged
+ * by VSCode "Code Runner" extension in console
+ * @param {function} f The function to test
+ * @param {TreeNode[]} roots Array of TreeNode to test
+ * @param {number} iterations How many times to run f against
+ * each TreeNode in roots
+ */
+function test(f, roots, iterations) {
+  for (const root of roots) {
+    for (let i = 0; i < iterations; i++) {
+      f(root);
+    }
+  }
+}
+
 class TreeNode {
   constructor(val) {
     this.val = val;
@@ -26,13 +43,25 @@ function invertTreeTwo(root) {
  * @return {TreeNode} root of new, inverted tree
  */
 function invertTree(root) {
-  if (!root) return root;
-  const leftTree = invertTree(root.left);
-  const rightTree = invertTree(root.right);
-  root.right = leftTree;
-  root.left = rightTree;
+  if (!root) return null;
+  let temp = root.right;
+  root.right = invertTree(root.left);
+  root.left = invertTree(temp);
   return root;
 }
+
+/**
+ * My implementation of invertTree using arrow notation
+ * @param {TreeNode} root
+ * @return {TreeNode} root of new, inverted tree
+ */
+let invertTreeThree = root => {
+  if (!root) return null;
+  let temp = root.right;
+  root.right = invertTree(root.left);
+  root.left = invertTree(temp);
+  return root;
+};
 
 function initTree(nums) {
   function getLeft(i) {
@@ -51,22 +80,6 @@ function initTree(nums) {
     return root;
   }
   return buildTree(0);
-}
-/**
- * Tests function 'f' against each TreeNode in 'roots' for the
- * specified number of 'iterations'. Execution time is logged
- * by VSCode "Code Runner" extension in console
- * @param {function} f The function to test
- * @param {TreeNode[]} roots Array of TreeNode to test
- * @param {number} iterations How many times to run f against
- * each TreeNode in roots
- */
-function test(f, roots, iterations) {
-  for (const root of roots) {
-    for (let i = 0; i < iterations; i++) {
-      f(root);
-    }
-  }
 }
 
 const roots = [
@@ -110,47 +123,27 @@ const roots = [
   ])
 ];
 
-// Test 1
-// test(invertTree, roots, 1000000);
+// Test 1: My implementation of invertTree
+// test(invertTree, roots, 100000000);
 // console.log("invertTree test complete.");
-// Test 2
-test(invertTreeTwo, roots, 1000000);
-console.log("invertTreeTwo test complete.");
+
+// Test 2: someone else's implementation of invertTree
+// test(invertTreeTwo, roots, 100000000);
+// console.log("invertTreeTwo test complete.");
+
+// Test 3: My implementation of invertTree
+test(invertTreeThree, roots, 100000000);
+console.log("invertTreeThree test complete.");
 
 /**
-[Running] node "c:\Users\Adam\Documents\__DA_SANDBOX__\treeInversionTests.js"
-invertTree test complete.
+----------------------------------
+RESULTS: (100,000,000 iterations)
+----------------------------------
 
-[Done] exited with code=0 in 0.293 seconds
+invertTree test: 19.735s
 
-[Running] node "c:\Users\Adam\Documents\__DA_SANDBOX__\treeInversionTests.js"
-invertTree test complete.
+invertTreeTwo test: 17.43s
 
-[Done] exited with code=0 in 0.293 seconds
+invertTreeThree test: 17.106s
 
-[Running] node "c:\Users\Adam\Documents\__DA_SANDBOX__\treeInversionTests.js"
-invertTree test complete.
-
-[Done] exited with code=0 in 0.294 seconds
-
-[Running] node "c:\Users\Adam\Documents\__DA_SANDBOX__\treeInversionTests.js"
-invertTreeTwo test complete.
-
-[Done] exited with code=0 in 0.269 seconds
-
-[Running] node "c:\Users\Adam\Documents\__DA_SANDBOX__\treeInversionTests.js"
-invertTreeTwo test complete.
-
-[Done] exited with code=0 in 0.266 seconds
-
-[Running] node "c:\Users\Adam\Documents\__DA_SANDBOX__\treeInversionTests.js"
-invertTreeTwo test complete.
-
-[Done] exited with code=0 in 0.273 seconds
- */
-
-/**
- * RESULTS:
- * function invertTree avg running time: 0.293333333333
- * function invertTreeTwo avg running time: 0.269333333333
- */
+*/
