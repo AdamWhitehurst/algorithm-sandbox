@@ -10,7 +10,8 @@
  * English characters.
  *
  * @param {number} li - The index of the current letter we are considering.
- * @param {number} lc - The count of letters already pulled from the current index
+ * @param {number} lc - The count of letters already pulled from the current
+ *                      letter index
  * @param {number} hs - The size of the current hand
  * @param {string} s - String representation of the current hand
  */
@@ -40,4 +41,4 @@ function scrabbleHandCombos(bag, li = 0, lc = 0, hs = 0, s = "") {
   return count;
 }
 
-console.log("Total opening hands: " + scrabbleHandCombos([3, 3, 0, 3]));
+console.log("Total opening hands: " + scrabbleHandCombos([3, 4, 4]));

@@ -1,5 +1,5 @@
 /**
- *Represents a peg used to stack disks on for Towers of Hanoi Problem
+ * Represents a peg for holding data representations of disks
  * @param {string} name - The name of this peg
  * @method push - push a new disk onto peg
  * @method pop - remove and return the top disk on peg
@@ -25,19 +25,13 @@ function towersOfHanoi(N) {
   }
 
   function move(N, A, B, C) {
-    console.log(
-      "CALLED: move " +
-        N +
-        " disk(s) from " +
-        A.name +
-        " to " +
-        C.name +
-        " using " +
-        B.name
-    );
     if (N === 0) return;
+    if (N !== 1)
+      console.log(
+        `CALLING: ${N} disk(s) from ${A.name} to ${C.name} using ${B.name}`
+      );
     move(N - 1, A, C, B);
-    console.log("MOVING: disc " + N + " from " + A.name + " to " + C.name);
+    console.log(`MOVING: disc ${N} from ${A.name} to ${C.name}`);
     C.push(A.pop());
     move(N - 1, B, A, C);
   }
